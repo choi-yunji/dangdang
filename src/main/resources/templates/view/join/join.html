@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>댕댕백과</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/join.css">
+</head>
+<body>
+<div class="container">
+    <div class="body d-md-flex align-items-center justify-content-between" >
+        <div class="box-1 mt-md-0 mt-5"><img src="/image/join.jpg" class="" alt=""></div>
+        <div class=" box-2 d-flex flex-column h-100">
+            <div class="mt-5">
+                <p class="mb-1 h-1">Create Account.</p>
+                <div class="">
+                    <div class="align-items-center">
+                            <div style="margin-bottom: 1vh">
+                                <input type="text" name="userid" id="userid" class="form-control" placeholder="ID" autocomplete="off" required/>
+                            </div>
+                            <div id="idValidaton">
+
+                            </div>
+                            <div style="margin-bottom: 1vh">
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Password" autocomplete="off" required/>
+                            </div>
+                            <div style="margin-bottom: 1vh">
+                            <input type="text" name="username" id="username" class="form-control" placeholder="Name" autocomplete="off" required/>
+                            </div>
+                            <div style="margin-bottom: 1vh">
+                                <input type="text" name="usernickname" id="usernickname" class="form-control" placeholder="Nickname" autocomplete="off" required/>
+                            </div>
+                            <div>
+                                <button type="button" class="btn text-white btn-warning btn-large form-control" id="btn_join">Join</button>
+                            </div>
+
+                    </div>
+                    <div class="mt-3">
+                        <p class="mb-0 text-muted">Already have an account?</p>
+                        <div class="btn btn-primary">Log in<span class="fas fa-chevron-right ms-1"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-auto">
+                <p class="footer text-muted mb-0 mt-md-0 mt-4">By register you agree with our <span
+                        class="p-color me-1">terms and conditions</span>and <span
+                        class="p-color ms-1">privacy policy</span></p>
+            </div>
+        </div>
+        <span class="fas fa-times"></span>
+    </div>
+</div>
+</body>
+<script src="/js/join/join.js"></script>
+</html>

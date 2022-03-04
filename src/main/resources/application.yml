@@ -1,0 +1,97 @@
+
+spring:
+  profiles:
+    active: real
+
+---
+spring:
+  profiles: real
+  devtools:
+    livereload:
+      enable: true
+    restart:
+      enable: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      use-new-id-generator-mappings: true
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+      show-sql: true
+
+  session:
+    store-type: jdbc
+
+  datasource:
+    url: jdbc:mysql://dangdang.c0jopavhlper.ap-northeast-2.rds.amazonaws.com/dangdang?zeroDateTimeBehavior=convertToNull
+    username: yunji
+    password: 12345678
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  messages:
+    basename: messages,ValidationMessages,PropertyNames
+    cache-duration: -1
+    encoding: UTF-8
+
+server:
+  port: 8089
+  servlet:
+    session:
+      timeout: 60m
+  ssl:
+    enabled: false
+    key-alias: inaf
+    key-store: inaf.pkcs12
+    key-store-password: test1234
+    key-password: test1234
+    trust-store: inaftrust.pkcs12
+    trust-store-password: test1234
+  error:
+    whitelabel:
+      enabled: false
+
+---
+
+---
+spring:
+  profiles: test
+  devtools:
+    livereload:
+      enable: true
+    restart:
+      enable: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      use-new-id-generator-mappings: true
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+      show-sql: true
+
+  session:
+    store-type: jdbc
+
+  datasource:
+    url: jdbc:mysql://dangdang.c0jopavhlper.ap-northeast-2.rds.amazonaws.com/dangdang
+    username: yunji
+    password: 12345678
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  messages:
+    basename: messages,ValidationMessages,PropertyNames
+    cache-duration: -1
+    encoding: UTF-8
+
+server:
+  port: 8080
+---

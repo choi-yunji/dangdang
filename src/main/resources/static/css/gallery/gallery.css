@@ -1,0 +1,15 @@
+.gallery-out{
+    padding: 40px; width: 100%; display: flex; flex-wrap: wrap; margin-top: 2vh;
+}
+
+.gallery-out .img{
+    display: block; width: 30%;  padding: 1vh; margin: 1.5%;
+}
+
+.gallery-out .title {
+    font-size:12px; display: flex; justify-content: center; margin: 10px 0px 10px 0px;
+}
+
+.gallery-out .comment {
+    font-size: 8px; color: #aaa
+}

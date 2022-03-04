@@ -1,0 +1,56 @@
+plugins { // (1)
+    id 'org.springframework.boot' version '2.4.1' // RELEASE 삭제
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+}
+
+
+group 'kr.co.dangdang'
+version '1.0-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+
+// for Junit 5
+test { // (2)
+    useJUnitPlatform()
+}
+
+dependencies {
+    //(3)
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-security')
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation('org.springframework.boot:spring-boot-starter-mail')
+    implementation('org.springframework.session:spring-session-jdbc')
+//    // lombok
+    implementation('org.projectlombok:lombok')
+    annotationProcessor('org.projectlombok:lombok')
+    testImplementation('org.projectlombok:lombok')
+    testAnnotationProcessor('org.projectlombok:lombok')
+
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation("org.mariadb.jdbc:mariadb-java-client")
+    implementation("mysql:mysql-connector-java")
+
+    implementation ('org.springframework.boot:spring-boot-starter-thymeleaf')
+    implementation ('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
+    developmentOnly ('org.springframework.boot:spring-boot-devtools')
+
+    implementation ('org.thymeleaf.extras:thymeleaf-extras-springsecurity5')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+//
+//    implementation( group: 'javax.inject', name: 'javax.inject', version: '1')
+//
+//    implementation('org.springframework.boot:spring-boot-starter-websocket')
+//
+//    implementation('org.webjars:sockjs-client:1.1.2')
+//    implementation('org.webjars:stomp-websocket:2.3.3-1')
+//
+//    implementation( 'com.jcraft:jsch:0.1.55' )
+
+}
