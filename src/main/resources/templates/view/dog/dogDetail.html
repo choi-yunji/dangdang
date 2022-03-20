@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,9 +30,10 @@
 </nav>
 
 <div class="container post-container">
+    <input th:value="${dogId}" style="display: none;" id="boardId"/>
     <div class="row">
         <div class="post">
-            <img src="hanle.jpg">
+            <img th:src="@{/api/dog/getImage/} + ${imageId}">
             <div class="tags">
                 <a href="">#강아지</a> <a href="">#강아지 행동</a> <a href="">#강아지 산책</a> <a href="">#강아지 잠</a>
             </div>
@@ -40,44 +41,21 @@
             </div>
             <hr>
             <div class="plublisher">
-                <img src="img/myprofile5.png">
+                <img th:src="@{/api/dog/getImage/} + ${imageId}">
                 <div>
                     <p>user name</p>
                 </div>
             </div>
+
             <div class="description">
                 <p>내용</p>
                 <hr>
-                <h4>댓글 500개</h4>
+                <h4 id="replyCount"></h4>
                 <div class="add-comment">
-                    <img src="img/myprofile3.png">
-                    <input type="text" placeholder="">
+                    <img th:src="@{/api/dog/getImage/} + ${imageId}">
+                    <input type="text" placeholder="댓글을 입력하세요" id="replyContent" onkeypress="dogDetail.enterReply(event)">
                 </div>
                 <div class="old-comment">
-                    <div class="comment">
-                        <img src="img/myprofile4.png">
-                        <div>
-                            <h3>Won Seok <span>2일 전</span></h3>
-                            <p>귀여운 한이리</p>
-                            <div class="acomment-action">
-                                <img src="img/likes.png" alt="">
-                                <span>520개</span>
-                                <span>답글</span>
-                                <a href="">모든 답글 보기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <img src="img/myprofile.png">
-                        <div>
-                            <h3>yunjisla<span>5분 전</span></h3>
-                            <P>아가모토보다 귀여워 ㅅㄱ</P>
-                            <div class="reply-icon">
-                                <img src="img/likes.png">
-                                <span>1000개</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -93,7 +71,7 @@
             <p class="notification">알림</p>
             <div class="profile-card">
                 <div class="profile-pic">
-                    <img src="img/myprofile2.png" alt="">
+                    <img src="/image/hanle.jpg" alt="">
                 </div>
                 <div>
                     <p>아가님이 ❤를 눌렀다 멍🐶</p>
@@ -105,4 +83,5 @@
 
 </div>
 </body>
+<script src="/js/dog/dogDetail.js"></script>
 </html>

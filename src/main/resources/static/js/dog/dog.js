@@ -35,7 +35,7 @@ var dog = {
                 html +=          '<p class="description"><span>'+item.userNickName+'</span>'+item.dogContents+'</p>';
                 html +=          '<p class="post-time">'+item.modDt+'</p>';
                 html +=          '<div class="comment">';
-                html +=          '<p>댓글 500개 <a href="/dog/detail"><button class="view-btn">모두보기</button></a></p>';
+                html +=          '<p>댓글 500개 <a href="/dog/detail/'+item.dogId+'/'+item.images[0].imageId+'"><button class="view-btn">모두보기</button></a></p>';
                 html +=         '</div>'
                 html +=      '</div>';
                 html +=      '<div class="comment-wrapper">';
