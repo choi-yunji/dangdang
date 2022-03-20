@@ -98,6 +98,7 @@ public class SharingService {
                             .userNickName(userInfo.getUserNickName())
                             .images(imageInfos)
                             .likeYn(tbLikeInfoRepository.findByBoardIdAndBoardTypeAndCreId(item.getSbId(), "S", sessionUser.getUserId()).isPresent())
+                            .likeCount(tbLikeInfoRepository.countAllByBoardIdAndBoardType(item.getSbId(), "S"))
                             .build()
             );
         }

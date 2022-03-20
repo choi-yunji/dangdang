@@ -14,6 +14,8 @@ var sharing = {
             contentType: 'application/json; charset=utf-8'
         }).done(function (data) {
             console.log(data);
+            var id = "#pLike" + sharingId;
+            $(String(id)).innerHTML("좋아요 " + data);
         }).fail(function (error) {
         });
     },
@@ -64,11 +66,11 @@ var sharing = {
                 html +=              '<img src="image/comment.png" class="icon" alt="">';
                 html +=              '<img src="image/messenger.png" class="icon" alt="">';
                 html +=          '</div>';
-                html +=          '<p class="likes">좋아요 1,999개 </p>';
+                html +=          '<p class="likes" id="pLike"'+item.sbId+'>좋아요 '+item.likeCount+'개 </p>';
                 html +=          '<p class="description"><span>'+item.userNickName+'</span>'+item.sbContents+'</p>';
                 html +=          '<p class="post-time">'+item.modDt+'</p>';
                 html +=          '<div class="comment">';
-                html +=          '<p>댓글 500개 <a href="/sharing/detail/'+item.sbId+'/'+item.images[0].imageId+'"><button class="view-btn">모두보기</button></a></p>';
+                html +=          '<p><a href="/sharing/detail/'+item.sbId+'/'+item.images[0].imageId+'"><button class="view-btn">모두보기</button></a></p>';
                 html +=         '</div>'
 
 
