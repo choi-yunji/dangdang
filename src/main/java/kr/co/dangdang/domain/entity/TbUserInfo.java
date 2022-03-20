@@ -36,6 +36,9 @@ public class TbUserInfo implements UserDetails {
     @Column(name = "USER_REG_DT",  nullable = false)
     private LocalDateTime userRegDt;
 
+    @Column(name = "IMAGE_ID", length = 20)
+    private Long imageId;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -85,6 +88,11 @@ public class TbUserInfo implements UserDetails {
         this.userName = userName;
         this.userNickName = userNickName;
         this.userRegDt = userRegDt;
-
     }
+
+    public void updateProfileImg(Long imageId) {
+        this.imageId = imageId;
+    }
+
+
 }

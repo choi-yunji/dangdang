@@ -1,5 +1,6 @@
 package kr.co.dangdang.common.service;
 
+import kr.co.dangdang.common.dto.SessionUser;
 import kr.co.dangdang.domain.entity.TbUserInfo;
 import kr.co.dangdang.domain.repository.TbUserInfoRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,13 +25,14 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        TbUserInfo userInfo = tbUserInfoRepository.findByUserId(username).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다."));
+        TbUserInfo userInfo = tbUserInfoRepository.findByUserId(username).orElseThrow(()-> new UsernameNotFoundException(username));
 
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 //        grantedAuthorities.add(new SimpleGrantedAuthority(Role.ADMIN.getKey()));
         grantedAuthorities.add(new SimpleGrantedAuthority("ADMIN"));
 //
+        httpSession.setAttribute("user", new SessionUser(userInfo));
 
         return new User(userInfo.getUserId(), userInfo.getUserPw(), grantedAuthorities);
     }

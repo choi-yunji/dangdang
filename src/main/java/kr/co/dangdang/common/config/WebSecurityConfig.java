@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-       web.ignoring().antMatchers("/css/**", "/js/**", "/image/**", "/lib/**");
+       web.ignoring().antMatchers("/css/**", "/js/**", "/image/**", "/lib/**","/error");
     }
 
     @Override
@@ -43,14 +43,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/loginPage", "/join", "/", "/login", "/api/join/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
+                // 로그인 설정
                     .formLogin()
                     .loginPage("/loginPage")
                     .loginProcessingUrl("/login")
+                    .failureUrl("/loginPage")
                     .defaultSuccessUrl("/")
+                    .permitAll()
                 .and()
                     .logout()
                     .logoutSuccessUrl("/loginPage")
                     .invalidateHttpSession(true)
+                .and()
+                // 403 예외처리 핸들링
+                .exceptionHandling().accessDeniedPage("/user/denied")
         ;
     }
 }

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<th:block th:fragment="top-menu">
+    <nav class="navbar">
+        <div class="nav-wrapper">
+            <img src="image/logo.png" class="title" alt="">
+            <input type="text" class="search-box" placeholder="search">
+            <div class="nav-items">
+                <a href="/"><img src="image/home.png" class="icon" alt=""></a>
+                <img src="image/messenger.png" class="icon" alt="">
+                <a href="/dog/write"><img src="image/add.png" class="icon" alt=""></a>
+                <!-- <img src="img/explore.PNG" class="icon" alt=""> -->
+                <img src="image/like.png" class="icon" alt="">
+                <div class="icon user-profile"></div>
+            </div>
+        </div>
+    </nav>
+</th:block>
+
+</html>

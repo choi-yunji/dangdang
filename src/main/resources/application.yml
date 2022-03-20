@@ -12,6 +12,11 @@ spring:
     restart:
       enable: true
 
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -40,6 +45,7 @@ spring:
 
 server:
   port: 8089
+
   servlet:
     session:
       timeout: 60m
@@ -52,9 +58,12 @@ server:
     trust-store: inaftrust.pkcs12
     trust-store-password: test1234
   error:
-    whitelabel:
-      enabled: false
+    include-exception: true
+    include-stacktrace: always
 
+dog:
+  image:
+    path: C:\upload
 ---
 
 ---
@@ -94,4 +103,8 @@ spring:
 
 server:
   port: 8080
+
+  error:
+    include-exception: true
+    include-stacktrace: always
 ---

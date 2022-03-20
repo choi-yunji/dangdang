@@ -2,7 +2,7 @@ var login = {
 
     init: function (){
 
-        $("#btn_joinForm").on("click", function () {
+        $("#join-btn").on("click", function () {
             login.moveToJoinPage();
         });
 
@@ -14,7 +14,7 @@ var login = {
                 $("#btn_login").trigger("click");
         });
 
-        $("#btn_login").on("click", function() {
+        $("#login-btn").on("click", function() {
             var email = $("input[name='username']").val(), password = $("input[name='password']").val();
             if (email == "") {
                 alert("아이디를 입력하세요");
@@ -38,32 +38,7 @@ var login = {
     moveToHomePage() {
         location.href = "/";
     },
-    loginAjax() {
-        let datas = {
-            username: username.value,
-            password: password.value
-        };
-        console.log(datas);
-        $.ajax({
-            type: 'POST',
-            url: '/api/common/ajaxLogin',
-            contentType: 'application/json; charset=utf-8',
-            data:JSON.stringify(datas)
-        }).done(function (loginCheck) {
-            console.log(loginCheck);
-            if (loginCheck) {
-                alert("login ok");
-                location.href = "/main";
-            } else {
-                alert("login fail")
-            }
 
-
-
-
-        }).fail(function (error) {
-        });
-    }
 }
 
 login.init();

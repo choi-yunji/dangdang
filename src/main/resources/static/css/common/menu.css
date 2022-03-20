@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+
 .mytitle {
     margin-top: 15vh;
     width: 100%;
@@ -9,6 +12,10 @@
     justify-content: center;
     font-family: 'Jua', sans-serif;
 
+}
+
+.navbar-brand {
+    font-family: 'Jua', sans-serif;
 }
 
 .mytitle > img {
@@ -29,7 +36,7 @@
 
 .menu {
     width: 5vh;
-    font-family: 'Yeon Sung', cursive;
+    font-family: 'Jua', sans-serif;
     margin: auto;
 
     /* display: flex;
