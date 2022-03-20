@@ -1,8 +1,11 @@
 package kr.co.dangdang.web.sharing.controller;
 
+import kr.co.dangdang.common.annotation.LoginUser;
+import kr.co.dangdang.common.dto.SessionUser;
 import kr.co.dangdang.domain.entity.TbImageInfo;
 import kr.co.dangdang.domain.repository.TbImageInfoRepository;
 import kr.co.dangdang.web.dog.dto.DogFindResponseDto;
+import kr.co.dangdang.web.like.service.LikeService;
 import kr.co.dangdang.web.sharing.dto.SharingFindResponseDto;
 import kr.co.dangdang.web.sharing.dto.SharingSaveRequsetDto;
 import kr.co.dangdang.web.sharing.service.SharingService;
@@ -32,6 +35,7 @@ import java.util.regex.Pattern;
 @RestController
 public class SharingApiController {
     private final SharingService sharingService;
+    private final LikeService likeService;
     private final TbImageInfoRepository tbImageInfoRepository;
 
     @PostMapping("/api/sharing/save/sharing")
@@ -44,10 +48,27 @@ public class SharingApiController {
         sharingService.saveImage(uploadFile, boardId);
     }
 
+    @PostMapping("/api/sharing/makeFootPrint/{sharingId}")
+    public Long makeFootPrint(@PathVariable Long sharingId, @LoginUser SessionUser sessionUser){
+        Long retLong = 0L;
+        if (likeService.checkFootPrint(sharingId, sessionUser, "S")) {
+            likeService.deleteFootPrint(sharingId, sessionUser, "S");
+        }else{
+            retLong = likeService.saveFootPrint(sharingId, "S");
+        }
+        return retLong;
+    }
+
+
     @GetMapping("/api/sharing/loadShraingBoard/{pageId}")
-    public List<SharingFindResponseDto> loadShraingBoard(@PathVariable int pageId){
+    public List<SharingFindResponseDto> loadShraingBoard(@PathVariable int pageId, @LoginUser SessionUser sessionUser){
         Pageable page = PageRequest.of(pageId, 3, Sort.by("sbId"));
-        return sharingService.loadShraingBoard(page);
+        return sharingService.loadShraingBoard(page, sessionUser);
+    }
+
+    @GetMapping("/api/sharing/countFootPrint/{sharingId}")
+    public int countFootPrint(@PathVariable Long sharingId){
+        return likeService.countFootPrint(sharingId, "S");
     }
 
 

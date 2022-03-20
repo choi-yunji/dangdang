@@ -1,9 +1,12 @@
 package kr.co.dangdang.web.sharing.service;
 
+import kr.co.dangdang.common.dto.SessionUser;
 import kr.co.dangdang.domain.entity.TbImageInfo;
+import kr.co.dangdang.domain.entity.TbLikeInfo;
 import kr.co.dangdang.domain.entity.TbSbInfo;
 import kr.co.dangdang.domain.entity.TbUserInfo;
 import kr.co.dangdang.domain.repository.TbImageInfoRepository;
+import kr.co.dangdang.domain.repository.TbLikeInfoRepository;
 import kr.co.dangdang.domain.repository.TbSbInfoTrpository;
 import kr.co.dangdang.domain.repository.TbUserInfoRepository;
 import kr.co.dangdang.web.sharing.dto.SharingFindResponseDto;
@@ -12,6 +15,7 @@ import kr.co.dangdang.web.dog.dto.DogFindResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -29,6 +33,7 @@ public class SharingService {
     private final TbSbInfoTrpository tbSbInfoRepository;
     private final TbImageInfoRepository tbImageInfoRepository;
     private final TbUserInfoRepository tbUserInfoRepository;
+    private final TbLikeInfoRepository tbLikeInfoRepository;
 
     public Long saveContent(SharingSaveRequsetDto sharingSaveRequsetDto) {
 
@@ -76,12 +81,13 @@ public class SharingService {
 
 //        }
     }
-    public List<SharingFindResponseDto> loadShraingBoard(Pageable pageable){
+    public List<SharingFindResponseDto> loadShraingBoard(Pageable pageable, SessionUser sessionUser){
         List<TbSbInfo> top5 = tbSbInfoRepository.findAllBySbDeleteYnOrderBySbIdDesc("N", pageable);
         List<SharingFindResponseDto> retDto = new ArrayList<>();
         for (TbSbInfo item : top5) {
             List<TbImageInfo> imageInfos = tbImageInfoRepository.findAllByBoardIdAndBoardType(item.getSbId(), "S");
             TbUserInfo userInfo = tbUserInfoRepository.findByUserId(item.getCreId()).orElse(null);
+
             retDto.add(
                     SharingFindResponseDto.builder()
                             .sbId(item.getSbId())
@@ -91,6 +97,7 @@ public class SharingService {
                             .userId(userInfo.getUserId())
                             .userNickName(userInfo.getUserNickName())
                             .images(imageInfos)
+                            .likeYn(tbLikeInfoRepository.findByBoardIdAndBoardTypeAndCreId(item.getSbId(), "S", sessionUser.getUserId()).isPresent())
                             .build()
             );
         }

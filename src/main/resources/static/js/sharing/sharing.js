@@ -7,6 +7,35 @@ var sharing = {
         sharing.loadSharingBoard();
         YesScroll()
     },
+    countFootPrint(sharingId) {
+        $.ajax({
+            type: 'GET',
+            url: '/api/sharing/countFootPrint/'+sharingId,
+            contentType: 'application/json; charset=utf-8'
+        }).done(function (data) {
+            console.log(data);
+        }).fail(function (error) {
+        });
+    },
+    makeFootPrint(sharingId) {
+        $.ajax({
+            type: 'POST',
+            url: '/api/sharing/makeFootPrint/'+sharingId,
+            contentType: 'application/json; charset=utf-8',
+        }).done(function (returnData) {
+            //좋아요가 눌렸습니다.
+            var id = "#imgSharing"+sharingId
+            console.log(id);
+            if (returnData == 0) {
+                $(String(id)).attr("src", "image/nolike.png");
+                alert("좋아요를 취소했습니다.");
+            }else{
+                $(String(id)).attr("src", "image/like.png");
+                alert("좋아요를 눌렀습니다.");
+            }
+        }).fail(function (error) {
+        });
+    },
 
     loadSharingBoard() {
         $.ajax({
@@ -14,7 +43,6 @@ var sharing = {
             url: '/api/sharing/loadShraingBoard/'+pagination,
             contentType: 'application/json; charset=utf-8'
         }).done(function (dataList) {
-
 
             dataList.forEach(item => {
                 var html = "";
@@ -28,7 +56,11 @@ var sharing = {
                 html +=      '<img src="/api/sharing/getImage/'+item.images[0].imageId+'" class="post-image" alt="">';
                 html +=      '<div class="post-content">';
                 html +=          '<div class="reaction-wrapper">';
-                html +=              '<img src="image/like.png" class="icon" alt="">';
+                if (item.likeYn) {
+                    html +=              '<img id="imgSharing'+item.sbId+'" src="image/like.png" class="icon" alt="" onclick="sharing.makeFootPrint('+item.sbId+')">';
+                }else{
+                    html +=              '<img id="imgSharing'+item.sbId+'" src="image/nolike.png" class="icon" alt="" onclick="sharing.makeFootPrint('+item.sbId+')">';
+                }
                 html +=              '<img src="image/comment.png" class="icon" alt="">';
                 html +=              '<img src="image/messenger.png" class="icon" alt="">';
                 html +=          '</div>';

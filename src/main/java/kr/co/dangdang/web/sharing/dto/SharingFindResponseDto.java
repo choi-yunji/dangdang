@@ -15,6 +15,7 @@ public class SharingFindResponseDto {
     private String userId;
     private String userNickName;
     private LocalDateTime modDt;
+    private boolean likeYn;
 
     private List<TbImageInfo> images;
 
@@ -26,7 +27,8 @@ public class SharingFindResponseDto {
             String userId,
             String userNickName,
             LocalDateTime modDt,
-            List<TbImageInfo>images
+            List<TbImageInfo>images,
+            boolean likeYn
     ){
         this.sbId = sbId;
         this.sbContents = sbContents;
@@ -35,6 +37,7 @@ public class SharingFindResponseDto {
         this.userNickName = userNickName;
         this.modDt = modDt;
         this.images = images;
+        this.likeYn = likeYn;
 
     }
 }
