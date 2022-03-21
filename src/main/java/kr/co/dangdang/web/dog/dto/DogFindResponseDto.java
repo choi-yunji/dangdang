@@ -16,6 +16,8 @@ public class DogFindResponseDto {
     private String userId;
     private String userNickName;
     private LocalDateTime modDt;
+    private boolean likeYn;
+    private int likeCount;
 
     private List<TbImageInfo>images;
 
@@ -27,7 +29,9 @@ public class DogFindResponseDto {
             String userId,
             String userNickName,
             LocalDateTime modDt,
-            List<TbImageInfo>images
+            List<TbImageInfo>images,
+            boolean likeYn,
+            int likeCount
     ){
         this.dogId = dogId;
         this.dogContents = dogContents;
@@ -36,6 +40,8 @@ public class DogFindResponseDto {
         this.userNickName = userNickName;
         this.modDt = modDt;
         this.images = images;
+        this.likeYn = likeYn;
+        this.likeCount = likeCount;
 
     }
 }

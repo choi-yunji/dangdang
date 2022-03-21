@@ -7,7 +7,37 @@ var dog = {
     init() {
         dog.loadDogBoard();
         YesScroll();
-
+    },
+    countFootPrint(dogId) {
+        $.ajax({
+            type: 'GET',
+            url: '/api/dog/countFootPrint/'+dogId,
+            contentType: 'application/json; charset=utf-8'
+        }).done(function (data) {
+            console.log(data);
+            var id = "#pLike" + dogId;
+            $(String(id)).innerHTML("좋아요 " + data);
+        }).fail(function (error) {
+        });
+    },
+    makeFootPrint(dogId) {
+        $.ajax({
+            type: 'POST',
+            url: '/api/dog/makeFootPrint/'+dogId,
+            contentType: 'application/json; charset=utf-8',
+        }).done(function (returnData) {
+            //좋아요가 눌렸습니다.
+            var id = "#imgDog"+dogId
+            console.log(id);
+            if (returnData == 0) {
+                $(String(id)).attr("src", "image/nolike.png");
+                alert("좋아요를 취소했습니다.");
+            }else{
+                $(String(id)).attr("src", "image/like.png");
+                alert("좋아요를 눌렀습니다.");
+            }
+        }).fail(function (error) {
+        });
     },
     loadDogBoard() {
         $.ajax({
@@ -27,11 +57,15 @@ var dog = {
                 html +=      '<img src="/api/dog/getImage/'+item.images[0].imageId+'" class="post-image" alt="">';
                 html +=      '<div class="post-content">';
                 html +=          '<div class="reaction-wrapper">';
-                html +=              '<img src="image/like.png" class="icon" alt="">';
+                if (item.likeYn) {
+                    html +=              '<img id="imgSharing'+item.dogId+'" src="image/like.png" class="icon" alt="" onclick="dog.makeFootPrint('+item.dogId+')">';
+                }else{
+                    html +=              '<img id="imgSharing'+item.dogId+'" src="image/nolike.png" class="icon" alt="" onclick="dog.makeFootPrint('+item.dogId+')">';
+                }
                 html +=              '<img src="image/comment.png" class="icon" alt="">';
                 html +=              '<img src="image/messenger.png" class="icon" alt="">';
                 html +=          '</div>';
-                html +=          '<p class="likes">좋아요 1,999개 </p>';
+                html +=          '<p class="likes" id="pLike"'+item.sbId+'>좋아요 '+item.likeCount+'개 </p>';
                 html +=          '<p class="description"><span>'+item.userNickName+'</span>'+item.dogContents+'</p>';
                 html +=          '<p class="post-time">'+item.modDt+'</p>';
                 html +=          '<div class="comment">';

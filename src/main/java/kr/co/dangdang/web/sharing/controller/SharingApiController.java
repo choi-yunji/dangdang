@@ -44,8 +44,9 @@ public class SharingApiController {
     }
 
     @PostMapping("/api/sharing/save/image/{boardId}")
-    public void write(MultipartFile uploadFile, @PathVariable Long boardId){
+    public boolean write(MultipartFile uploadFile, @PathVariable Long boardId){
         sharingService.saveImage(uploadFile, boardId);
+        return true;
     }
 
     @PostMapping("/api/sharing/makeFootPrint/{sharingId}")

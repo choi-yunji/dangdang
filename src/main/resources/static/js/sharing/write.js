@@ -30,11 +30,11 @@ window.addEventListener('load', function() {
     }
 });
 
-var dogWrite = {
+var sharingWrite = {
 
     init() {
         $("#btn_write").on("click", function () {
-            dogWrite.upload();
+            sharingWrite.upload();
         });
     },
     upload() {
@@ -56,7 +56,7 @@ var dogWrite = {
         formData.append("uploadFile", fileObj);
 
         let inputData = {
-            content: dogContent.value,
+            content: sharingContent.value,
         }
 
         $.ajax({
@@ -76,6 +76,7 @@ var dogWrite = {
             }).done(function (test) {
                 console.log(test);
                 alert("업로드 성공");
+                location.href = "/sharing";
             }).fail(function (error) {
             });
 
@@ -88,5 +89,5 @@ var dogWrite = {
     }
 }
 
-dogWrite.init();
+sharingWrite.init();
 

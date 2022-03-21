@@ -6,6 +6,7 @@ import kr.co.dangdang.domain.entity.TbImageInfo;
 import kr.co.dangdang.domain.entity.TbUserInfo;
 import kr.co.dangdang.domain.repository.TbDbInfoRepository;
 import kr.co.dangdang.domain.repository.TbImageInfoRepository;
+import kr.co.dangdang.domain.repository.TbLikeInfoRepository;
 import kr.co.dangdang.domain.repository.TbUserInfoRepository;
 import kr.co.dangdang.web.dog.dto.DogFindResponseDto;
 import kr.co.dangdang.web.dog.dto.DogSaveRequestDto;
@@ -35,6 +36,7 @@ public class DogService {
     private final TbDbInfoRepository tbDbInfoRepository;
     private final TbImageInfoRepository tbImageInfoRepository;
     private final TbUserInfoRepository tbUserInfoRepository;
+    private final TbLikeInfoRepository tbLikeInfoRepository;
 
     public Long saveContent(DogSaveRequestDto dogSaveRequestDto) {
 
@@ -82,7 +84,7 @@ public class DogService {
 
 //        }
     }
-    public List<DogFindResponseDto> loadDogBoard(Pageable pageable){
+    public List<DogFindResponseDto> loadDogBoard(Pageable pageable,SessionUser sessionUser){
         List<TbDbInfo> top5 = tbDbInfoRepository.findAllByDogDeleteYnOrderByDogIdDesc("N", pageable);
         List<DogFindResponseDto> retDto = new ArrayList<>();
         for (TbDbInfo item : top5) {
@@ -97,6 +99,8 @@ public class DogService {
                             .userId(userInfo.getUserId())
                             .userNickName(userInfo.getUserNickName())
                             .images(imageInfos)
+                            .likeYn(tbLikeInfoRepository.findByBoardIdAndBoardTypeAndCreId(item.getDogId(), "D", sessionUser.getUserId()).isPresent())
+                            .likeCount(tbLikeInfoRepository.countAllByBoardIdAndBoardType(item.getDogId(), "D"))
                             .build()
             );
         }

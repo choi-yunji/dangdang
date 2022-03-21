@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -45,6 +46,7 @@ public class SharingService {
         return tbSbInfo.getSbId();
     }
 
+    @Transactional
     public void saveImage(MultipartFile multipartFile, Long boardId) {
         String imagePath = "C:\\upload";
 

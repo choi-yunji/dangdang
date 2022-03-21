@@ -9,6 +9,7 @@ import kr.co.dangdang.web.dog.dto.DogFindResponseDto;
 import kr.co.dangdang.web.dog.dto.DogSaveRequestDto;
 import kr.co.dangdang.web.dog.service.DogService;
 import kr.co.dangdang.web.join.dto.JoinSaveRequestDto;
+import kr.co.dangdang.web.like.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +31,7 @@ import java.util.List;
 public class DogApiController {
 
     private final DogService dogService;
+    private final LikeService likeService;
     private final TbImageInfoRepository tbImageInfoRepository;
 
     @PostMapping("/api/dog/save/dog")
@@ -44,9 +46,20 @@ public class DogApiController {
     }
 
     @GetMapping("/api/dog/loadDogBoard/{pageId}")
-    public List<DogFindResponseDto> loadDogBoard(@PathVariable int pageId){
+    public List<DogFindResponseDto> loadDogBoard(@PathVariable int pageId, @LoginUser SessionUser sessionUser){
         Pageable page = PageRequest.of(pageId, 5, Sort.by("dogId"));
-        return dogService.loadDogBoard(page);
+        return dogService.loadDogBoard(page, sessionUser);
+    }
+
+    @PostMapping("/api/dog/makeFootPrint/{dogId}")
+    public Long makeFootPrint(@PathVariable Long dogId, @LoginUser SessionUser sessionUser){
+        Long retLong = 0L;
+        if (likeService.checkFootPrint(dogId, sessionUser, "D")) {
+            likeService.deleteFootPrint(dogId, sessionUser, "D");
+        }else{
+            retLong = likeService.saveFootPrint(dogId, "D");
+        }
+        return retLong;
     }
 
     @GetMapping("/api/dog/getImage/{imageId}")
