@@ -33,9 +33,9 @@ spring:
     store-type: jdbc
 
   datasource:
-    url: jdbc:mysql://dangdang.c0jopavhlper.ap-northeast-2.rds.amazonaws.com/dangdang?zeroDateTimeBehavior=convertToNull
+    url: dangdang.c0jopavhlper.ap-northeast-2.rds.amazonaws.com
     username: yunji
-    password: 12345678
+    password: dandy1312^^
     driver-class-name: org.mariadb.jdbc.Driver
 
   messages:
@@ -92,8 +92,8 @@ spring:
 
   datasource:
     url: jdbc:mysql://dangdang.c0jopavhlper.ap-northeast-2.rds.amazonaws.com/dangdang
-    username: yunji
-    password: 12345678
+    username:
+    password:
     driver-class-name: org.mariadb.jdbc.Driver
 
   messages:
